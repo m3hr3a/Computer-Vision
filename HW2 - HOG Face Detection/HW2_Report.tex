@@ -1,0 +1,548 @@
+\documentclass[a4paper,12pt]{article}
+%\pagestyle{empty}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+
+
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{bbm} 
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{cool}
+\usepackage{xepersian}
+\settextfont{B Nazanin}
+
+\DefaultMathsDigits
+\renewcommand{\labelitemi}{$\circ$}
+
+
+\begin{document}
+\begin{center}
+به نام خدا
+\end{center}
+\begin{large}
+بینایی ماشین
+\hspace{11.5cm}
+نیمسال دوم 98-99
+\\
+گزارش تمرین دوم\hspace{8.8cm}  دانشجو: مهرسا پوریا (95101247)
+\end{large}
+
+\noindent\rule{\textwidth}{1pt}
+
+\begin{center} \textbf{مدت زمان اجرای کد بخش الف حدود 5 دقیقه است؛ بعد از باز شدن پنجره ها یک کلید از صفحه کلید را فشار دهید تا اجرای کد ادامه داده شود. همچنین تصاویر تست باید در پوشه ای به نام \lr{Test\_images}
+در محل کد باشد.
+}
+\end{center}
+\section*{الف ) تمارین کامپیوتری}
+
+\begin{enumerate}
+	\item[۱)] این آرگومان ها به صورت زیر هستند:
+
+	\textbf{\lr{winSize}} :
+	 	سایز پنجره ای است که در آن جسم تشخیص داده میشود. در واقع برای هر پنجره یک بردار از ویژگی حاصل میشود. مقدار دیفالت این آرگومان در مقاله
+	 	$(64, 128)$
+	 	است. واضح است که برای یک عکس با سایز ثابت اگر بخواهیم برای کل عکس یک توصیف کننده را محاسبه کنیم باید این پنجره را روی عکس حرکت دهیم تا به ویژگی ها برسیم. با افزایش ابعاد پنجره برای عکس با بعد ثابت تعداد ویژگی های هر پنجره نیز زیاد میشود و تعداد پنجره ها به دلیل تداخل با نرخ کمتری کم میشوند بنابراین انتظار داریم تعداد ویژگی های نهایی با افزایش ابعاد 
+	 	پنجره زیاد شوند.
+	 	
+	 	
+	 \textbf{\lr{cellSize}} :
+	 هر پنجره به تعدادی سلول تقسیم میشود؛ ابعاد این سلول ها در مقاله
+	 $(8, 8)$
+	 است. با افزایش سایز سلول ها تعداد آنها در یک پنجره کم میشود و چون تعداد ویژگی های هر سلول ثابت است بنابراین تعداد ویژگی های نهایی نیز کاهش می یابد. با کاهش سایز سلول نیز تعداد ویژگی های نهایی زیاد میشود.
+	 
+	 
+	 \textbf{\lr{nbins}} :
+	 این پارامتر تعداد دسته های هیستوگرام زوایا در هر سلول است و در واقع برابر ویژگی های نسبت داده شده به هر سلول است. مقدار آن در مقاله ۹ است و با تعداد ویژگی ها رابطه خطی دارد یعنی اگر مثلا ۲ برابر شود تعداد ویژگی ها نیز دو برابر میشوند.
+	 
+	 
+	 \textbf{\lr{blockSize}} :
+	 در واقع سایز هر بلاک است که مقدار آن در مقاله
+	 $(16, 16)$
+	 است که یعنی اینکه هر بلاک ۴ سلول را در بر میگرد. با افزایش سایز بلاک تعداد سلول های بیشتری در آن می افتند و چون تعداد بلاک ها در صورت وجود تداخل کمتر کم میشود انتظار داریم تعداد ویژگی های نهایی زیاد شود؛ با کاهش 
+	 سایز بلاک نیز به دلیل مشابه تعداد ویژگی ها کم میشود. (در هر بلاک هیستوگرام های زوایای سلول ها نرمالایز میشوند و دلیل بلوک بندی این است تا اثرات روشنایی کنترل شوند.)
+	 
+	 
+	 \textbf{\lr{blockStride}} :
+	 این پارامتر میزان تداخل بلاک ها را تعیین میکند و معمولا ۵۰ درصد سایز خود بلاک تعیین میشود و مقدار آن در مقاله
+	 $(8, 8)$
+	 است. با کاهش این ابعاد تداخل زیاد میشود و بلاک ها حالات بیشتری می یابند و یک سلول در حالات بیشتری قرار میگیرد و چون با نرمالیزشن در هر بلاک یک سلول ویژگی های متفاوتی میدهد تعداد ویژگی ها بیشتر میشود. با افزایش این ابعاد تعداد ویژگی ها کم میشوند.
+	 
+	 
+	 \textbf{\lr{derivAperture}} :
+	 این پارامتر سایز پنجره فیلتر سوبل برای مشتق گیری را تعیین میکند و در صورتی که برابر ۱ تنظیم شود از فیلتر های یک در سه استفاده میشود. مقدار پیش فرض در مقاله نیز ۱ در ۳ است و تغییر آن روی تعداد ویژگی ها اثری نمیگذارد و بسته به شرایط تصویر روی کیفیت آن ویژگی ها اثر میگذارد.
+	 
+	 
+	 \textbf{\lr{signedGradients}} :
+	 در صورت 
+	 \lr{TRUE}
+	 بودن زوایا بین ۰ تا ۳۶۰ در نظر گرفته میشوند و در غیر این صورت بین ۰ تا ۱۸۰ درجه لحاظ میشوند که دیفالت مقاله حالت دوم است. تغییر این متغیر اثری بر تعداد ويژگی ها ندارد و فقط ممکن است طول مربوط به زوایای یک بین را تغییر بدهد.
+	 
+	 
+	 \textbf{\lr{gammaCorrection}} :
+	 این آرگومان اگر
+	 \lr{TRUE}
+	 باشد 
+	  \lr{gammaCorrection}
+	برای تصیح رنگ انجام میشود و در غیر این صورت (که دیفات مقاله هم هست) ‌انجام نمیشود.
+	تغییر این پارامتر اثری بر تعداد ویژگی ها ندارد.
+	
+	
+	\textbf{\lr{winSigma}} :
+	برای کم کردن اثر پیکسل های لبه ای در هر بلاک قبل از محاسبه ویژگی ها میتوان روی آن بلاک یک کرنل گاوسی اثر داد که این پارامتر سیگما این کرنل است؛ که مقدار آن در مقاله ۸ است. با تغییر آن نیز تعداد ویژگی ها تغییری نمیکند.
+	
+	
+	\textbf{\lr{histogramNormType}} :
+	این پارامتر نوع نرمالالیزاسیون بلاک را مشخص میکند که دیفالت آن 
+	\lr{L2-Hys}
+	است و تغییر آن اثری بر تعداد ویژگی ها ندارد.
+	
+	
+	\textbf{\lr{L2HysThreshold}} :
+	ترشولد مورد استفاده برای 
+	\lr{clipping}
+	در نرمالیزاسیون
+	\lr{L2-Hys}
+	 است که مقدار آن در مقاله
+	\lr{$0.2$}
+	است و تغییر آن اثری بر تعداد متغیر ها ندارد.
+	
+	
+	\textbf{\lr{nlevels}} :
+	حداکثر تعداد افزایش پنجره های تشخیص است که دیفالت آن ۶۴ است.
+	
+	
+	\textbf{\lr{input image}} :
+	فضای رنگی دیفالت در مقاله 
+	\lr{RGB}
+	یا رنگی است. 
+	\newpage
+	\item[2)]
+	در این بخش تابعی به منظور محاسبه و نوشتن ویژگی های 
+	\lr{hog}
+	به نام
+	\lr{calculate-hog-features}
+	نوشته شده است. که در آن با مقادیر گفته شده در بخش قبل یک 
+	\lr{HOGDescriptor}
+	میسازیم. سپس توسط 
+	متد 
+	\lr{compute}
+بدون تغییر پارامترهای دیفالت آن	ویژگی ها را محاسبه میکنیم.
+توسط تابع 
+\lr{np.savetxt()}
+نیز آنها را در یک فایل 
+\lr{txt}
+به نام
+\lr{hogFeatures}
+مینویسیم.
+برای تست عملکرد آن نیز ویژگی ها را برای یک عکس 
+به سایز پنجره
+$(64, 128)$
+ویژگی ها را محاسبه میکنیم. از آنجا که سایز بلاک 
+$(16, 16)$
+است و محل های شروع بلاک ها با توجه به 
+\lr{blockStride = $(8, 8)$}
+ضرایب ۸ است به ترتیب در جهت افقی 7 و در جهت عمودی 15 محل برای شروع بلاک ها داریم بنابراین 105 بلاک خواهیم داشت که هر یک 4 سلول را در بر میگیرند و  چون ویژگی مربوط به هر سلول ۹ تایی است (تعداد دسته های هیستوگرام)
+در مجموع
+\lr{$105 \times 4 \times 9 = 3780$}
+ویژگی برای تصویر محاسبه میشود (تعداد ويژگی های یک پنجره و سایز تصویر و پنجره در این مثال برابر است).
+
+
+\item[3)]
+مطابق کد گفته شده در متن تمرین مراحل این بخش انجام شد؛ در نهایت 30000
+عکس 62 در 47 با برچسب منفی و 13233 عکس به همین سایز با برچسب مثبت داریم 
+که برای مراحل بعدی اماده هستند.
+
+
+\item[4)]
+این قسمت نیز به سادگی با تعریف یک 
+\lr{np.array}
+که درایه های اولیه آن (به اندازه تعداد تصویر با برچسپ مثبت) ۱ و بقیه صفر هستند انجام شد.
+
+\item[5)]
+در این قسمت با استفاده از تابع 
+\lr{GridSearch}
+با تنظیم کردن 
+\lr{cv (kfold cross validation)}
+روی ۵ که معادل 80 درصد آموزش و 20 درصد تست است
+پارامتر بهینه 
+\lr{C}
+ متد
+\lr{LinearSVC}
+را با جست و جو میان مقادیر 
+\lr{$(0.01, 0.02, 0.05, 0.1, 0.2, 1)$}
+را میابیم و بهترین آنها که متناظر 
+\lr{$C = 0.2$}
+است را به عنوان مدل آموزش خود انتخاب میکنیم. که درصد صحتش 
+\lr{$98.9$}
+است و اگر همین مدل را با 80 درصد داده ها جداگانه آموزش دهیم درصد روی 20 درصد باقی مانده
+\lr{$99.1$}
+است. در نهایت مدل منتخب را با همه داده ها آموزش داده و آماده مرحله بعد میشویم.
+\item[6]
+در این بخش تابع
+\lr{give-me-boxes}
+نوشته شده و تصویر را در ورودی میگیرد و در خروجی مختصات مستیطل های اولیه که حاوی تصویر شناسایی شده اند و امتیاز هرکدام از آنها را بازمیگرداند؛ فرآیند این تابع به این صورت است :‌ تصاویر را با استفاده از تابع 
+\lr{pyramid-gaussian}
+و با نرخ $1.2$ 
+\lr{downsample}
+میکنیم؛ برای هر تصویر داون سمپل شده پنجره به ابعاد 62 در 47 (اندازه تصاویر آموزش) روی تصویر حرکت میدهیم و با استفاده از مدل آموزش داده شده بررسی میکنیم که آیا تصویر صورت در آن است یا خیر و اگر بود مختصات آن پنجره را با استفاده از نرخ داون سمپل به مختصات تصویر اصلی برمیگردانیم و ذخیره میکنیم؛ همچنین امتیاز  (خروجی تابع
+\lr{model.decision-function}
+) هر یک را نیز ذخیره میکنیم.
+تابع بعدی
+\lr{my-final-box}
+نیز نوشته شده است که از مستطیل های اولیه به محدوده نهایی حاوی تصویر میرسیم. در ابتدا مستطیل هایی که امتیاز کمتر از $1.4$ دارند را حذف میکنیم
+سپس با دو روش مستطیل نهایی را تعیین میکنیم. 
+\begin{enumerate}
+\item[روش اول)]
+بااستفاده از متد 
+\lr{non-max-suppression}
+تنسورفلو مستطیل نهایی را انتخاب میکنیم.
+\item[روش دوم)]  
+(اضافی)
+از روش 
+\lr{heatmap} 
+استفاده میکنیم؛ به هر پیکسل اگر در باکس های بعد حذف امتیاز باشد 20 امتیاز میدهیم و در نهایت پیکسل ها با امتیاز کمتر از ثلث بیشینه امتیاز را صفر کرده و از بین نواحی باقی مانده مستطیل نهایی حاوی پیکسل های با امتیاز را انتخاب میکنیم. 
+\end{enumerate}
+روی 5 عکس داده شده این روند را انجام داده و با دقت خوبی صورت را شناسایی میکنیم؛ روش 
+\lr{heatmap}
+خروجی بسیار خوبی دارد.
+
+
+در هر صفحه بعد مرحله های مختلف پنجره ها برای تصاویر تست% آورده شده است.
+    \begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{test_image1_all_boxes.jpg}
+            \caption[Network2]%
+            {{\small همه ی پنجره های تشخیص داده شده اولیه}}    
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{test_image1_filtered_boxes.jpg}
+            \caption[]%
+            {{\small بعد از حذف پنجره ها با امتیاز کم}}    
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{test_image1_NonMaxSuppression.jpg}
+            \caption[]%
+            {{\small خروجی نهایی :‌ روش \lr{NonMaxSuppression}}}    
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}           
+            \centering 
+            \includegraphics[width=\textwidth]{test_image1_heatMap.jpg}
+            \caption[]%
+            {{\small خروجی نهایی : ‌روش \lr{heatmap}}}    
+        \end{subfigure}
+        \caption[]
+        {\small خروجی ها برای عکس تست شماره 1} 
+    \end{figure*}
+        \begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{test_image2_all_boxes.jpg}
+            \caption[Network2]%
+            {{\small همه ی پنجره های تشخیص داده شده اولیه}}    
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{test_image2_filtered_boxes.jpg}
+            \caption[]%
+            {{\small بعد از حذف پنجره ها با امتیاز کم}}    
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{test_image2_NonMaxSuppression.jpg}
+            \caption[]%
+            {{\small خروجی نهایی :‌ روش \lr{NonMaxSuppression}}}    
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}           
+            \centering 
+            \includegraphics[width=\textwidth]{test_image2_heatMap.jpg}
+            \caption[]%
+            {{\small خروجی نهایی : ‌روش \lr{heatmap}}}    
+        \end{subfigure}
+        \caption[]
+        {\small خروجی ها برای عکس تست شماره 2} 
+    \end{figure*}
+   
+    \begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{test_image3_all_boxes.jpg}
+            \caption[Network2]%
+            {{\small همه ی پنجره های تشخیص داده شده اولیه}}    
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{test_image3_filtered_boxes.jpg}
+            \caption[]%
+            {{\small بعد از حذف پنجره ها با امتیاز کم}}    
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{test_image3_NonMaxSuppression.jpg}
+            \caption[]%
+            {{\small خروجی نهایی :‌ روش \lr{NonMaxSuppression}}}    
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}           
+            \centering 
+            \includegraphics[width=\textwidth]{test_image3_heatMap.jpg}
+            \caption[]%
+            {{\small خروجی نهایی : ‌روش \lr{heatmap}}}    
+        \end{subfigure}
+        \caption[]
+        {\small خروجی ها برای عکس تست شماره 3} 
+    \end{figure*}
+        \begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{test_image4_all_boxes.jpg}
+            \caption[Network2]%
+            {{\small همه ی پنجره های تشخیص داده شده اولیه}}    
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{test_image4_filtered_boxes.jpg}
+            \caption[]%
+            {{\small بعد از حذف پنجره ها با امتیاز کم}}    
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{test_image4_NonMaxSuppression.jpg}
+            \caption[]%
+            {{\small خروجی نهایی :‌ روش \lr{NonMaxSuppression}}}    
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}           
+            \centering 
+            \includegraphics[width=\textwidth]{test_image4_heatMap.jpg}
+            \caption[]%
+            {{\small خروجی نهایی : ‌روش \lr{heatmap}}}    
+        \end{subfigure}
+        \caption[]
+        {\small خروجی ها برای عکس تست شماره 4} 
+    \end{figure*}
+        \begin{figure*}
+        \centering
+        \begin{subfigure}[b]{0.475\textwidth}
+            \centering
+            \includegraphics[width=\textwidth]{test_image5_all_boxes.jpg}
+            \caption[Network2]%
+            {{\small همه ی پنجره های تشخیص داده شده اولیه}}    
+        \end{subfigure}
+        \hfill
+        \begin{subfigure}[b]{0.475\textwidth}  
+            \centering 
+            \includegraphics[width=\textwidth]{test_image5_filtered_boxes.jpg}
+            \caption[]%
+            {{\small بعد از حذف پنجره ها با امتیاز کم}}    
+        \end{subfigure}
+        \vskip\baselineskip
+        \begin{subfigure}[b]{0.475\textwidth}   
+            \centering 
+            \includegraphics[width=\textwidth]{test_image5_NonMaxSuppression.jpg}
+            \caption[]%
+            {{\small خروجی نهایی :‌ روش \lr{NonMaxSuppression}}}    
+        \end{subfigure}
+        \quad
+        \begin{subfigure}[b]{0.475\textwidth}           
+            \centering 
+            \includegraphics[width=\textwidth]{test_image5_heatMap.jpg}
+            \caption[]%
+            {{\small خروجی نهایی : ‌روش \lr{heatmap}}}    
+        \end{subfigure}
+        \caption[]
+        {\small خروجی ها برای عکس تست شماره 5} 
+    \end{figure*}
+\end{enumerate}
+\newpage
+\section*{ب)‌ تمارین پژوهشی/تئوری}
+
+\begin{enumerate}
+	\item[1)]
+	\lr{face alignment} (تنظیم صورت) :
+	هدف 
+	\lr{face alignment}
+	شناسایی ساختار هندسی و نقاط مهم صورت انسان و تبدیل صورت موجود در عکس به صورت استاندارد با تبدیل هایی مثل انتقال, اسکیل و دوران است. این کار مقدمه کارهای مهمی مانند شناسایی صورت (\lr{face recognition}) و تایید صورت (\lr{face verification}) است و باعث میشود این کارها برای تصاویر با ژشت ها و زاویه های مختلف قابل انجام شوند؛ در ادامه به چند روش (\lr{face alignment}) میپردازیم.
+	\begin{enumerate}
+	\item[روش اول :]
+	(مقاله داده شده)
+	در این مقاله از خطوط مرزی برای یافتن ساختار هندسی صورت و تشخیص نقاط مهم استفاده میشود. روش مقاله شامل دو قدم اصلی است؛ اولین اینکه خطوط مرزی صورت توسط \lr{heatmap} ها تخمین زده شده و سپس با کمک آنها برای یافتن نقاط مهم صورت
+	\lr{landmark}
+	رگرسیون انجام میشود. برای یافتن ارتباط بین
+	\lr{facial bounderies}
+	و 
+	\lr{face landmark}
+	از یک روش یادگیری رقابتی استفاده میشود که در آن تمییزدهنده با رگرسور جفت شده و نتایج بهتری را به ما میدهد. 
+	\item[روش دوم :]
+	(
+	\lr{Face Alignment Using Active Shape Model And SVM , Thai, Truong}
+		)
+		این مقاله با استفاده از روشهای یادگیری مانند 
+		\lr{SVM}
+		لندمارک ها را می یابد.
+	\item[روش سوم :](
+\lr{Convolutional Experts Network for Facial Landmark Detection, Zadeh}		
+)
+		در این مقاله یکی از روشهای تشخیص که از شبکه های عصبی برای یافتن نقاط کلیدی است را معرفی میکند/
+		
+		
+	\end{enumerate}
+	\item[2)]
+	همانگونه که در متن سوال گفته شده هدف
+	\lr{Edge Preserving Smoothing}
+	نرم کردن بخش های غیر لبه تصویر است؛ در واقع این یعنی اینکه بدون اینکه به لبه های تصویر آسیب بزند محدوده های بخش غیر لبه را نرم تر کند. در ادامه به دو روش برای اینکار اشاره میکنیم :
+	(منبع : 
+\lr{A Brief Survey of Recent Edge-Preserving Smoothing Algorithms
+on Digital Images, Chandrajit Pal
+, Amlan Chakrabarti
+, and Ranjan Ghosh}	
+	)
+	\begin{enumerate}
+	\item[۱] \lr{anisotropic diffusion} :
+	از \lr{descriptor}
+مبنی بر گرادیان	برای تشخیص وجود لبه در پیکسل معرفی میشود و در صورتی که لبه موجود باشد در آن نرم شدن انجام نمیشود و در غیر این صورت انجام میشود. 
+	
+	\item[۲] \lr{bilateral filter} :
+	این یک فیلتر غیر خطی است که اگر بر تصویر عمل کند با حفظ لبه ها قسمت های غیر لبه را صاف میکند و در ضابطه ای مانند زیر عمل میکند که در آن 
+	$I$
+	شدت روشنایی پیکسل و 
+	$f$ و
+	$g$
+	میتوانند کرنل گاوسی باشند و 
+$W_p$	
+	ضریب نرمالیزاسیون است. در واقع اثر اضافی کرنل تعریف شده روی شدت پیکسل ها علاوه بر موقعیت مکانی این است که اگر تفاضل پیکسل ها زیاد باشد که میتواند به معنای لبه باشد فیلتر ضعیف تر شده و روی پیکسل های لبه اثر کمتری دارند.
+	\begin{equation*}
+	I^{filtered}(x) = \frac{1}{W_p} \sum_{x_i \in \Omega} I(x_i) f_r(||I(x_i) - I(x)||)g_s(||x_i - x||)
+	\end{equation*}
+	\end{enumerate}
+	\item[3)]
+	یک راه سخت نوشتن معادلات و حل آن هاست اما من برای حل ابتدا با توجه به مقادیر وسطی فیلتر کانوالو شده را حدس زدم و سپس با توجه به آنکه فیلتر برای همه ی پیکسل های وسطی درست بود به دنبال نوع 
+	\lr{border handeling}
+	رفتم.
+	فیلتر حدس زده شده به صورت زیر است :‌
+	\begin{equation*}
+		F = \begin{bmatrix}
+		1 & 1 & 1 \\
+		1 & 1 & 1 \\
+		1 & 1 & 1 
+		\end{bmatrix}
+	\end{equation*}
+	حال با توجه به امتحان کردن انواع داده شده در صورت سوال \lr{border handeling}
+	از نوع 
+	\lr{BORDER\_WRAP}
+	تشخیص داده شد که یعنی تصویر بعد 
+	\lr{border handling}
+	به صورت زیر بوده است :‌
+	\begin{equation*}
+	image-after-border-handling = \begin{bmatrix}
+	3 & 34 & 5 & 1 & 7 & 3 & 34\\
+	3 & 12 & 6 & 4 & 2 & 3 & 12 \\ 
+	6 & 4 & 6 & 4 & 12 & 6 & 4 \\ 
+	3 & 45 & 4 & 1 & 6 & 3 & 45 \\ 
+	3 & 34 & 5 & 1 & 7 & 3 & 34 \\ 
+	3 & 12 & 6 & 4 & 2 & 3 & 12 \\ 
+	\end{bmatrix}
+	\end{equation*}
+	حال برای نشان دادن درستی نتیجه کانوالو را با شرایط گفته شده مینویسیم که نشان میدهد استدلال های قبلی ما صحیح بوده اند : (در این جا برای درایه های سطر اول نتایج نوشته شده اند)
+	\begin{gather*}
+		79 = 3 + 34 + 5 + 3 + 12 + 6 + 6 + 4 + 6 \\	
+		76 = 34 + 5 + 1 + 12 + 6 + 4 + 4 + 6 + 4 \\
+		47 = 5 + 1 + 7 + 6 + 4 + 2 + 6 + 4 + 12 \\
+		42 = 1 + 7 + 3 + 4 + 2 + 3 + 4 + 12 + 6 \\
+		83 = 7 + 3 + 34 + 2 + 3 + 12 + 12 + 6 + 4 \\
+		...
+	\end{gather*}
+	\item[4)]
+	فرض کنیم $u$
+	و $v$ دوران یافته های محور های $x$ و $y$ هستند؛ بنابراین با استفاده از مفهوم ماتریس دوران میتواند نوشت :‌
+	\begin{equation}
+  \begin{bmatrix}
+    u \\
+    v
+  \end{bmatrix} = \begin{bmatrix}
+  cos(\theta) &  sin(\theta) \\
+  -sin(\theta) &  cos(\theta) 
+  \end{bmatrix} \begin{bmatrix}
+    x \\
+    y
+  \end{bmatrix}
+	\end{equation}
+حال باید نشان داد :‌
+\begin{equation}
+ \nabla^2 f = \frac{d ^2 f}{d x^ 2} + \frac{d^2 f}{d y^2} = \frac{d^2 f}{d u^2} + \frac{d^2 f}{d v^2}
+\end{equation}
+داریم :‌
+\begin{equation*}
+\frac{d^2 f}{d x^2} = \frac{d}{dx} (\frac{df}{dx}) = \frac{d}{dx} (\frac{df}{du} \times \frac{du}{dx} + \frac{df}{dv} \times \frac{dv}{dx}) =  \frac{d}{dx} (\frac{df}{du} cos(\theta) - \frac{df}{dv} sin(\theta)) 
+\end{equation*}
+\begin{equation*}
+ = \frac{d}{du} \frac{df}{dx} cos(\theta) - \frac{d}{dv} \frac{df}{dx} sin(\theta) = \frac{d}{du} (\frac{df}{du} \frac{du}{dx} + \frac{df}{dv} \frac{dv}{dx}) cos(\theta) - \frac{d}{dv} (\frac{df}{du} \frac{du}{dx} + \frac{df}{dv} \frac{dv}{dx}) sin(\theta) 
+\end{equation*}
+\begin{equation*}
+= \frac{d}{du} (\frac{df}{du} cos(\theta) - \frac{df}{dv} sin(\theta)) cos(\theta) - \frac{d}{dv} (\frac{df}{du} cos(\theta) - \frac{df}{dv} sin(\theta)) sin(\theta)
+\end{equation*}
+به صورت مشابه :‌
+\begin{equation*}
+\frac{d^2 f}{d y^2} = \frac{d}{dy} (\frac{df}{dy}) = \frac{d}{dy} (\frac{df}{du} \times \frac{du}{dy} + \frac{df}{dv} \times \frac{dv}{dy}) =  \frac{d}{dy} (\frac{df}{du} sin(\theta) + \frac{df}{dv} cos(\theta)) 
+\end{equation*}
+\begin{equation*}
+ = \frac{d}{du} \frac{df}{dy} sin(\theta) + \frac{d}{dv} \frac{df}{dx} cos(\theta) = \frac{d}{du} (\frac{df}{du} \frac{du}{dy} + \frac{df}{dv} \frac{dv}{dy}) sin(\theta) + \frac{d}{dv} (\frac{df}{du} \frac{du}{dy} + \frac{df}{dv} \frac{dv}{dy}) cos(\theta) 
+\end{equation*}
+\begin{equation*}
+= \frac{d}{du} (\frac{df}{du} sin(\theta) + \frac{df}{dv} cos(\theta)) sin(\theta) + \frac{d}{dv} (\frac{df}{du} sin(\theta) + \frac{df}{dv} cos(\theta)) cos(\theta)
+\end{equation*}
+بنابراین :‌
+\begin{equation*}
+\nabla^2 f = \frac{d ^2 f}{d x^ 2} + \frac{d^2 f}{d y^2} = \frac{d}{du} (\frac{df}{du} cos(\theta) - \frac{df}{dv} sin(\theta)) cos(\theta) - \frac{d}{dv} (\frac{df}{du} cos(\theta) - \frac{df}{dv} sin(\theta)) sin(\theta)
+\end{equation*}
+\begin{equation*}
++ \frac{d}{du} (\frac{df}{du} sin(\theta) + \frac{df}{dv} cos(\theta)) sin(\theta) + \frac{d}{dv} (\frac{df}{du} sin(\theta) + \frac{df}{dv} cos(\theta)) cos(\theta) = 
+\end{equation*}
+\begin{equation*}
+\frac{d^2 f}{du^2} (sin(\theta)^2 + cos(\theta)^2) + \frac{d^2 f}{dv^2} (sin(\theta)^2 + cos(\theta)^2)=\frac{d^2 f}{du^2} +\frac{d^2 f}{dv^2} 
+\end{equation*}
+بنابراین حکم ثابت شد و میتوان گفت گرادیان ایزوتروپیک است.
+		\item[5)]
+	بدیهی است که در حالت کلی با اعمال اپراتور های ریاضی روی دو تصویر فقط با استفاده از هیستوگرام های تصاویر اولیه نمیتوان به هیستوگرام تصویر حاصل رسید برای مثال در جمع با توجه به اینکه پیکسل های متناظر هم در دو تصویر اولیه انتخاب های زیادی برای 
+	\lr{bin}
+	های اولیه دارند هیستوگرام جمع میتواند هر ساختاری داشته باشد. اما در حالتی که حداقل یکی از تصاویر ثابت باشد میتوان گزاره های زیر را برای هر 
+	عملیات بیان کرد :‌
+	\begin{enumerate}
+	\item[الف)]
+	در جمع اگر یکی از تصاویر ثابت (همه پیکسل ها برابر $c$) باشد انگار تمام پیکسلهای عکس دیگر با یک عدد ثابت جمع میشوند بنابراین واضح است که \lr{bin} های اولیه آن تصویر با حفظ ارتفاع (فراوانی) به اندازه $c$ شیفت میخورد؛ چون پیکسل ها مثبت هستند بدیهتا این شیفت به سمت راست خواهد بود همچنین اگر مقادیر بزرگتر از ۲۵۵ را برابر ۲۵۵ قرار دهیم \lr{bin} فراوانی مربوط به آن جمع فراوانی همه ی \lr{bin}  هایی خواهد شد که بعد از شیفت در مکان بزرگتری از ۲۵۵ قرار میگیرند.
+	\item[ب)]
+	حالت تفاضل نیز کاملا مشابه قسمت بالاست فقط \lr{bin} ها با حفظ ارتفاع به اندازه $c$ به چپ شیفت خواند خورد. اگر حاصل تفاضل منفی را نیز صفر قرار دهیم فراوانی دسته مربوط به صفر برابر فراوانی همه دسته هایی میشود که بعد تفاضل صفر یا منفی میشوند است. 
+	\item[ج)] 
+	در حالت ضرب \lr{bin} با مرکزیت $n$ با همان فراوانی (ارتفاع) به محل $n\times c$ منتقل میشود. در واقع فروانی ها حفظ شده و فقط محل دسته ها عوض میشوند و چون $c$ مثبت و بزرگتر از یک است دسته ها با ضریب $c$ پخش تر میشوند. 
+	\item[د)] 
+		در حالت تقسیم \lr{bin} با مرکزیت $n$ با همان فراوانی (ارتفاع) به محل $\frac{n}{c}$ منتقل میشود. در واقع فروانی ها حفظ شده و فقط محل  دسته ها عوض میشوند و چون $c$ مثبت و بزرگتر از یک است دسته ها با ضریب $\frac{1}{c}$ جمع تر میشوند. 
+		\end{enumerate}
+\end{enumerate}
+
+\end{document}
